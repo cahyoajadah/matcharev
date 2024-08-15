@@ -94,24 +94,30 @@ body{
     display: flex;
     align-items: center; /*kalo mau vertikal*/
     /* justify-content kalo mau secara horizontal*/
-    background-image: url('../img/header.jpg');
-    background-repeat: no-repeat;
     position: relative;
 }
+
+.hero .bg-clip{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
 .hero::after{
     content: '';
     display: block;
     position: absolute;
     width: 100%;
-    height: 30%;
+    height: 10%;
     background: linear-gradient(0deg, rgba(101, 67, 33, 0.8) 7%, rgba(101, 67, 33, 0) 25%);
     bottom: 0;
 }
 
 .hero .content{
-    /* position: absolute; */
+    position: absolute; 
     padding: 1.8rem 7%;
-    max-width: 60rem;      
+    max-width: 60rem; 
 }
 
 .hero .content h1{
@@ -125,16 +131,29 @@ body{
     color: var(--primary);
 }
 
+/* animate text start */
+
 .hero .content p{
     font-size: 1.6rem;
     margin-top: 0.5rem;
     line-height: 1.4;
-    font-weight: 300;
+    font-weight: 350;
     text-shadow: 1px 1px 3px rgba(1,1,3,0.5);
     mix-blend-mode: hard-light; /*biar gak nyatu ama bg*/
     background-color: #556b2f;
     border-radius: 0.5rem;
+    transform: translateX(-100%);      
 }
+
+section .content p{
+    transition: 1s;
+} 
+
+.hero.show-animate .content p{
+    transform: translateX(0);
+}  
+
+/* animate text end */
 
 .hero .content .cta{
     margin-top: 1rem;
@@ -163,7 +182,6 @@ body{
 
 .about .row{
     display: flex; /*supaya sebelah sebelahan */
-
 }
 
 .about .row .about-img{
@@ -177,22 +195,53 @@ body{
 .about .row .content{
     flex: 1 1 35rem;
     padding: 0 1rem;
+
 }
 
-.about .row .content h3{
+.about .row .content .h3{
     font-size: 1.8rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
+    border-right: 2px solid rgba(255,255,255,.75);
+    overflow: hidden; /* Hide overflowing text for the typewriter effect */
+    white-space: nowrap; /* Prevent text from wrapping during animation */
+    display: inline-block; /* Allow the text container to shrink-wrap around content */
+    max-width: 0; /* Start with 0 width for the typewriter effect */
 }
 
+.about .row .content .h3animate{
+    animation: 
+      typewriter 3s steps(44) 1s 1 normal both,
+      blinkTextCursor 800ms steps(44) infinite normal;
+}
+
+@keyframes typewriter {
+    from { max-width: 0; }
+    to { max-width: 100%; }
+}
+
+@keyframes blinkTextCursor {
+    from { border-right-color: rgba(252, 249, 249, 0.75); }
+    to { border-right-color: transparent; }
+}
+
+/* animate text start */
 .about .row .content p{
     margin-bottom: 0.8rem;    
     font-size: 1.5rem;
     font-weight: 100;
-    line-height: 1.6;
+    line-height: 1.4;
+    text-align: justify;
+    transform: scale(.10);
 }
 
+.about.show-animate .row .content p{
+    transform: scale(1);
+}
+
+/* animate text end */
+
 /*Menu Section */
- 
+
 .menu{
     padding: 10rem 7% 1.4rem;
 }
